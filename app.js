@@ -20,14 +20,13 @@ var commentRoutes = require("./routes/comments"),
     authRoutes = require("./routes/index")
 
 
-//mongoose.connect("mongodb://localhost/yelp_camp",{ useNewUrlParser: true } )
+
 mongoose.connect(process.env.DATABASEURL,{ useNewUrlParser: true, useCreateIndex: true 
 }).then(() => {
   console.log('connected to DB');
 }).catch(err => {
   console.log('ERROR :', err.message)
 });
-//mongodb+srv://tombanks:<password>@cluster0-ywafa.mongodb.net/test?retryWrites=true&w=majority
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:true}))
