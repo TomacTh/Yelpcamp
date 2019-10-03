@@ -20,7 +20,15 @@ var commentRoutes = require("./routes/comments"),
     authRoutes = require("./routes/index")
 
 
-mongoose.connect("mongodb://localhost/yelp_camp",{ useNewUrlParser: true } )
+//mongoose.connect("mongodb://localhost/yelp_camp",{ useNewUrlParser: true } )
+mongoose.connect(process.env.DATABASEURL,{ useNewUrlParser: true, useCreateIndex: true 
+}).then(() => {
+  console.log('connected to DB');
+}).catch(err => {
+  console.log('ERROR :', err.message)
+});
+//mongodb+srv://tombanks:<password>@cluster0-ywafa.mongodb.net/test?retryWrites=true&w=majority
+
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static(__dirname+ "/public"));
@@ -60,6 +68,8 @@ app.use("/", authRoutes);
 
 
 //)========================================================================================
-app.listen(3000, function(){
-  console.log("Yelcamp server has started");
+app.listen(process.env.PORT, process.env.IP, function(){
+  console.log(`Yelcamp server has started ${process.env}`);
 })
+
+
